@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: dev
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      enabled: true
+

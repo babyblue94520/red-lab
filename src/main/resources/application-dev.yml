@@ -1,0 +1,15 @@
+spring:
+  sql:
+    init:
+      platform: dev
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://192.168.56.101:5432/post_dev
+    username: root
+    password: 123456
+    hikari:
+      minimum-idle: 10
+      maximum-pool-size: 200
+      idle-timeout: 300000
+      max-lifetime: 1200000
+
