@@ -1,5 +1,7 @@
 # Red-Lab
 
+http://${IP}:8080/swagger-ui/index.html
+
 ## Jenkins 環境
 
 ### 下載 Jenkins 環境快照
