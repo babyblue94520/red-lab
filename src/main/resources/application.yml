@@ -8,4 +8,6 @@ spring:
   sql:
     init:
       enabled: true
-
+logging:
+  level:
+    pers.clare: debug

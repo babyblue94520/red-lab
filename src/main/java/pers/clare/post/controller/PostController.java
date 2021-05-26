@@ -23,6 +23,8 @@ public class PostController {
             , @RequestParam(required = false) Long prevTime
             , @RequestParam(required = false) Long prevUserId
     ) {
+        System.out.println(prevTime);
+        System.out.println(prevUserId);
         return ResultHolder.out(postService.findAll(size, prevTime, prevUserId));
     }
 

@@ -11,9 +11,9 @@ import java.util.List;
 @Repository
 public interface PostSqlRepository extends SQLRepository {
 
-    @HiSql("select * from post p order by p.time desc limit :size")
+    @HiSql("select * from post order by time desc limit :size")
     List<Post> findAll(int size);
 
-    @HiSql("select * from Post p where p.time <= :time and p.userId != :userId order by p.time desc limit :size")
+    @HiSql("select * from post where time < :time or (time=:time and user_id != :userId) order by time desc limit :size")
     List<Post> findAll(int size, long time, long userId);
 }
