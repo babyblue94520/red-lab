@@ -4,3 +4,5 @@ services:
     network_mode: host
     build: .
     container_name: red-lab
+    environment:
+      - '--spring.profiles.active=prod'

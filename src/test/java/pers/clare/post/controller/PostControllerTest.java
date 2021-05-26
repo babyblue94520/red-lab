@@ -83,10 +83,8 @@ public class PostControllerTest {
                         .append("&prevUserId=").append(post.getUserId())
                 ;
             }
-            System.out.println(url);
 
             ResponseEntity<String> responseEntity = restTemplate.exchange(url.toString(), HttpMethod.GET, new HttpEntity(headers), String.class);
-            System.out.println(responseEntity.getBody());
             response = JsonUtil.decode(responseEntity.getBody(), new TypeReference<ResultData<List<Post>>>() {
             });
             all.addAll(response.getData());

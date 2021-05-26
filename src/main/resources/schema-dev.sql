@@ -2,10 +2,10 @@ CREATE TABLE IF NOT EXISTS "public"."user"
 (
     "id"   int8 NOT NULL GENERATED ALWAYS AS IDENTITY (
         INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-),
+        MINVALUE 1
+        MAXVALUE 9223372036854775807
+        START 1
+        ),
     "name" varchar(30) COLLATE "pg_catalog"."default",
     CONSTRAINT "user_pkey" PRIMARY KEY ("id")
 )
@@ -15,34 +15,33 @@ ALTER TABLE "public"."user"
     OWNER TO "root";
 
 COMMENT
-ON COLUMN "public"."user"."id" IS 'ID';
+    ON COLUMN "public"."user"."id" IS 'ID';
 
 COMMENT
-ON COLUMN "public"."user"."name" IS '名稱';
+    ON COLUMN "public"."user"."name" IS '名稱';
 
 CREATE TABLE IF NOT EXISTS "public"."post"
 (
-    "user_id"     int8 NOT NULL,
     "time"        int8 NOT NULL,
+    "user_id"     int8 NOT NULL,
     "message"     varchar(255) COLLATE "pg_catalog"."default",
     "reply_count" int4,
-    CONSTRAINT "post_pkey" PRIMARY KEY ("user_id", "time")
-)
-;
+    CONSTRAINT "post_pkey" PRIMARY KEY ("time", "user_id")
+) PARTITION BY RANGE ("time");
+
 ALTER TABLE "public"."post"
     OWNER TO "root";
 
-CREATE TABLE IF NOT EXISTS "public"."post_reply"
-(
-    "user_id"      int8                                        NOT NULL,
-    "time"         int8                                        NOT NULL,
-    "post_user_id" int8                                        NOT NULL,
-    "post_time"    int8                                        NOT NULL,
-    "message"      varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-    "reply_count"  int4                                        NOT NULL,
-    CONSTRAINT "post_reply_pkey" PRIMARY KEY ("user_id", "time", "post_user_id", "post_time", "message", "reply_count")
-)
-;
-
-ALTER TABLE "public"."post_reply"
-    OWNER TO "root";
+CREATE TABLE IF NOT EXISTS "public"."pMin" PARTITION OF "public"."post" FOR VALUES FROM ( MINVALUE ) TO (1619798400000);-- 1970-01-01 08:00:00.000~2021-04-30 23:59:59.999
+CREATE TABLE IF NOT EXISTS "public"."p20210501" PARTITION OF "public"."post" FOR VALUES FROM (1619798400000) TO (1622476800000);-- 2021-05-01 00:00:00.000~31 23:59:59.999
+CREATE TABLE IF NOT EXISTS "public"."p20210601" PARTITION OF "public"."post" FOR VALUES FROM (1622476800000) TO (1625068800000);-- 2021-06-01 00:00:00.000~30 23:59:59.999
+CREATE TABLE IF NOT EXISTS "public"."p20210701" PARTITION OF "public"."post" FOR VALUES FROM (1625068800000) TO (1627747200000);-- 2021-07-01 00:00:00.000~31 23:59:59.999
+CREATE TABLE IF NOT EXISTS "public"."p20210801" PARTITION OF "public"."post" FOR VALUES FROM (1627747200000) TO (1630425600000);-- 2021-08-01 00:00:00.000~31 23:59:59.999
+CREATE TABLE IF NOT EXISTS "public"."p20210901" PARTITION OF "public"."post" FOR VALUES FROM (1630425600000) TO (1633017600000);-- 2021-09-01 00:00:00.000~30 23:59:59.999
+CREATE TABLE IF NOT EXISTS "public"."p20211001" PARTITION OF "public"."post" FOR VALUES FROM (1633017600000) TO (1635696000000);-- 2021-10-01 00:00:00.000~31 23:59:59.999
+CREATE TABLE IF NOT EXISTS "public"."p20211101" PARTITION OF "public"."post" FOR VALUES FROM (1635696000000) TO (1638288000000);-- 2021-11-01 00:00:00.000~30 23:59:59.999
+CREATE TABLE IF NOT EXISTS "public"."p20211201" PARTITION OF "public"."post" FOR VALUES FROM (1638288000000) TO (1640966400000);-- 2021-12-01 00:00:00.000~31 23:59:59.999
+CREATE TABLE IF NOT EXISTS "public"."p20220101" PARTITION OF "public"."post" FOR VALUES FROM (1640966400000) TO (1643644800000);-- 2022-01-01 00:00:00.000~31 23:59:59.999
+CREATE TABLE IF NOT EXISTS "public"."p20220201" PARTITION OF "public"."post" FOR VALUES FROM (1643644800000) TO (1646064000000);-- 2022-02-01 00:00:00.000~28 23:59:59.999
+CREATE TABLE IF NOT EXISTS "public"."p20220301" PARTITION OF "public"."post" FOR VALUES FROM (1646064000000) TO (1648742400000);-- 2022-03-01 00:00:00.000~31 23:59:59.999
+CREATE TABLE IF NOT EXISTS "public"."pMax" PARTITION OF "public"."post" FOR VALUES FROM (1648742400000) TO (MAXVALUE);-- 2022-04-01 00:00:00.000~
