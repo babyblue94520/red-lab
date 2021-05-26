@@ -34,7 +34,7 @@ public class UserService {
         if (id == null) {
             return null;
         }
-        return userRepository.findById(id).get();
+        return userRepository.findById(id).orElse(null);
     }
 
     @CacheEvict(cacheNames = "users", key = "'all'")
@@ -44,4 +44,14 @@ public class UserService {
         return userRepository.insert(user);
     }
 
+    @CacheEvict(cacheNames = "users", key = "'all'")
+    public User update(User user) {
+        return userRepository.update(user);
+    }
+
+
+    @CacheEvict(cacheNames = "users", key = "'all'")
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
 }

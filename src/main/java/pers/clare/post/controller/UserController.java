@@ -1,9 +1,8 @@
 package pers.clare.post.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import pers.clare.common.result.ResultHolder;
 import pers.clare.common.result.ResultRefresh;
 import pers.clare.common.vo.Refresh;
@@ -22,6 +21,19 @@ public class UserController {
         return ResultHolder.out(userService.insert(name)
                 , new Refresh().users(userService.findAll())
         );
+    }
+
+    @PatchMapping
+    public ResultRefresh<User> update(User user) {
+        return ResultHolder.out(userService.update(user)
+                , new Refresh().users(userService.findAll())
+        );
+    }
+
+    @DeleteMapping
+    public ResultRefresh<User> delete(Long id) {
+        userService.delete(id);
+        return ResultHolder.out(new Refresh().users(userService.findAll()));
     }
 
 }

@@ -1,6 +1,8 @@
 package pers.clare.post.data.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Id;
@@ -9,6 +11,8 @@ import java.util.Objects;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class PostPK implements Serializable {
     private static final long serialVersionUID = 1L;
 
