@@ -4,7 +4,7 @@
 
 ### 下載 Jenkins 環境快照
 
-[google]()
+[red-lab.tar.gz](https://drive.google.com/file/d/1nISK_8rvPYie9DAnf0OFXCdgl-4pltSi/view?usp=sharing)
 
 ### 解壓縮到 linux 環境
 
